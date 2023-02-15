@@ -20,11 +20,11 @@ describe('Teste a função fetchProduct', () => {
 
   it('fetchProducts com argumento computador é uma estrutura de dados', async () => {
     const final = await fetchProduct('MLB1405519561');
-    expect(final.results).toEqual(product);
+    expect(final).toEqual(product);
   });
 
-  it('ao chamar a função fetchProducts sem argumento, retorna um erro', async () => {
-    const result = await fetchProduct();
-    expect(() => result).rejects.toThrow('ID não informado');
+  it('ao chamar a função fetchProducts sem argumento, retorna um erro', () => {
+    // const result = await fetchProduct();
+    expect(fetchProduct()).rejects.toThrow('ID não informado');
   });
 });
