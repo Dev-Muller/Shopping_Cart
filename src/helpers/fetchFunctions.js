@@ -9,11 +9,12 @@ export const fetchProductsList = async (param) => {
   try {
     const API = `https://api.mercadolibre.com/sites/MLB/search?q=${param}`;
     // se nao usar async
-    // fetch(API)
+    // return fetch(API)
     //   .then((response) => response.json())
-    //   .then((data) => data.results).catch ((error) => {
-    //      throw new Error(error.message)
-    //    };
+    //   .then((data) => data.results)
+    //   .catch((error) => {
+    //     throw new Error(error.message);
+    //   });
     // se usar async
     const response = await fetch(API);
     const data = await response.json();
