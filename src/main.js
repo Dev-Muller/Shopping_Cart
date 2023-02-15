@@ -12,5 +12,17 @@ const produto = async () => {
   });
   return variable;
 };
-produto();
+// produto();
+
+const loading = async () => {
+  const loadingText = document.createElement('p');
+  loadingText.innerHTML = 'Carregando...';
+  loadingText.classList.add('loading');
+  itens.appendChild(loadingText);
+  console.log(loadingText);
+  await produto();
+  itens.removeChild(loadingText);
+};
+loading();
+
 document.querySelector('.cep-button').addEventListener('click', searchCep);
