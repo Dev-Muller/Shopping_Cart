@@ -1,4 +1,4 @@
-import { removeCartID } from './cartFunctions';
+import { removeCartID, saveCartID } from './cartFunctions';
 import { fetchProduct } from './fetchFunctions';
 
 // Esses comentários que estão antes de cada uma das funções são chamados de JSdoc,
@@ -132,6 +132,7 @@ export const createProductElement = ({ id, title, thumbnail, price }) => {
     const response = await fetchProduct(productId);
     const product = createCartProductElement(response);
     cartItens.appendChild(product);
+    saveCartID(productId);
     return product;
   };
 
