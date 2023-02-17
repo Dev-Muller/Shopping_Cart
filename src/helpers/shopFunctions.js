@@ -41,6 +41,19 @@ export const getIdFromProduct = (product) => (
   product.querySelector('span.product__id').innerText
 );
 
+const cartFinalValue = () => {
+  const itemValue = document.querySelectorAll('.cartPrice');
+  const result = document.querySelector('.total-price');
+  let finalPrice = 0;
+  if (itemValue) {
+    itemValue.forEach((e) => {
+      finalPrice += +e.innerHTML;
+    });
+    result.innerHTML = finalPrice.toFixed(2);
+    localStorage.setItem('cartTotalPrice', JSON.stringify(result.innerHTML));
+  }
+};
+
 /**
  * Função que remove o produto do carrinho.
  * @param {Element} li - Elemento do produto a ser removido do carrinho.
@@ -76,7 +89,8 @@ export const createCartProductElement = ({ id, title, price, pictures }) => {
   const infoContainer = createCustomElement('div', 'cart__product__info-container');
   infoContainer.appendChild(createCustomElement('span', 'product__title', title));
   const priceElement = createCustomElement('span', 'product__price', 'R$ ');
-  priceElement.appendChild(createCustomElement('span', 'product__price__value', price));
+  priceElement
+    .appendChild(createCustomElement('span', 'product__price__value cartPrice', price));
   infoContainer.appendChild(priceElement);
 
   li.appendChild(infoContainer);
@@ -88,7 +102,10 @@ export const createCartProductElement = ({ id, title, price, pictures }) => {
   );
   li.appendChild(removeButton);
 
-  li.addEventListener('click', () => removeCartProduct(li, id));
+  li.addEventListener('click', () => {
+    removeCartProduct(li, id);
+    cartFinalValue();
+  });
   return li;
 };
 
@@ -101,6 +118,7 @@ export const createCartProductElement = ({ id, title, price, pictures }) => {
  * @param {number} product.price - Preço do produto.
  * @returns {Element} Elemento de produto.
  */
+
 export const createProductElement = ({ id, title, thumbnail, price }) => {
   const section = document.createElement('section');
   section.className = 'product';
@@ -136,7 +154,9 @@ export const createProductElement = ({ id, title, thumbnail, price }) => {
     return product;
   };
 
-  cartButton.addEventListener('click', cartProduct);
+  cartButton.addEventListener('click', (event) => {
+    cartProduct(event).then(cartFinalValue);
+  });
 
   return section;
 };

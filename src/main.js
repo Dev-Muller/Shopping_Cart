@@ -54,4 +54,9 @@ const cartSavedProduct = async () => {
 
 window.onload = async () => {
   await cartSavedProduct();
+  const cartFinalPrice = JSON.parse(localStorage.getItem('cartTotalPrice'));
+  if (cartFinalPrice) {
+    const result = document.querySelector('.total-price');
+    result.innerHTML = cartFinalPrice;
+  }
 };
