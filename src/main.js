@@ -5,6 +5,8 @@ import { fetchProductsList, fetchProduct } from './helpers/fetchFunctions';
 import { getSavedCartIDs } from './helpers/cartFunctions';
 
 const itens = document.querySelector('.products');
+const cepInput = document.querySelector('.cep-input');
+const cepbtn = document.querySelector('.cep-button');
 
 const produto = async (param) => {
   const response = await fetchProductsList(param);
@@ -39,7 +41,10 @@ const condition = async () => {
 };
 condition();
 
-document.querySelector('.cep-button').addEventListener('click', searchCep);
+cepbtn.addEventListener('click', async () => {
+  const local = document.querySelector('.cart__address');
+  await searchCep(cepInput.value, local);
+});
 
 const cartSavedProduct = async () => {
   const cartItens = document.querySelector('.cart__products');
